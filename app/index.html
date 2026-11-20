@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vice Booth — GTA-style photo-booth cover maker</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>VICE BOOTH</h1>
+  <p>Turn any photo into a GTA-style photo-booth strip cover. Offline — your photos never leave this machine.</p>
+</header>
+<main class="app">
+  <section class="controls" aria-label="Cover controls">
+    <h2>1 · Photo</h2>
+    <div class="mode-row" role="group" aria-label="Photo mode">
+      <button type="button" data-mode="one" class="active">One photo, 4 crops</button>
+      <button type="button" data-mode="four">4 different photos</button>
+    </div>
+    <label class="file">Load a photo
+      <input id="photo-one" type="file" accept="image/*">
+    </label>
+    <div id="frame-slots" hidden>
+      <label class="file">Frame 1 <input id="photo-0" type="file" accept="image/*"></label>
+      <label class="file">Frame 2 <input id="photo-1" type="file" accept="image/*"></label>
+      <label class="file">Frame 3 <input id="photo-2" type="file" accept="image/*"></label>
+      <label class="file">Frame 4 <input id="photo-3" type="file" accept="image/*"></label>
+    </div>
+    <p class="hint">Drag a frame to pan it, scroll over a frame to zoom. Click a frame to select it.</p>
+    <button id="reset-crops" type="button">Reset crops</button>
+
+    <h2>2 · Grade</h2>
+    <div class="grade-row" role="group" aria-label="Colour grade">
+      <button type="button" data-grade="sunset" class="active">Sunset</button>
+      <button type="button" data-grade="neon">Neon Night</button>
+      <button type="button" data-grade="pastel">Pastel Vice</button>
+      <button type="button" data-grade="noir">Noir</button>
+    </div>
+    <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+    <label class="check"><input id="vignette" type="checkbox" checked> Vignette</label>
+
+    <h2>3 · Caption</h2>
+    <label>Title <input id="title" type="text" maxlength="24" value="VICE BOOTH"></label>
+    <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="SUNSET HEIST"></label>
+
+    <h2>4 · Export</h2>
+    <label>Size
+      <select id="size">
+        <option value="1080x1350">Portrait 1080 x 1350</option>
+        <option value="1080x1080">Square 1080 x 1080</option>
+        <option value="1920x1080">Wide 1920 x 1080</option>
+      </select>
+    </label>
+    <button id="export" type="button" class="export">Export PNG</button>
+    <p id="status" role="status"></p>
+    <p class="fineprint">Original art, lettering and code. No Rockstar Games logo, artwork or fonts. Photos stay on your machine.</p>
+  </section>
+  <section class="preview-wrap" aria-label="Live preview">
+    <canvas id="preview" width="1080" height="1350" aria-label="The cover preview"></canvas>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
