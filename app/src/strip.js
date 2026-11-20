@@ -42,12 +42,25 @@ export const GRADES = {
   },
 };
 
-/** Default per-frame crops when one photo fills all four frames. */
+/**
+ * Default per-frame crops when one photo fills all four frames.
+ *
+ * Frames are wide panoramic slices (frame height is ~1/3 of frame width),
+ * so dy ~ 0 samples the middle band of the photo — and the subject's face
+ * sits at the TOP of the sample photos (pier face y ~0.02-0.35, boulevard
+ * face y ~0.10-0.30), which the old dy ~ 0 presets cut off entirely.
+ * dy shifts the photo centre by dy * frame-height; a top-anchored crop
+ * needs dy ~= zoom (the visible band is then y ~0.01-0.37 on the square
+ * pier photo and y ~0.13-0.41 on the portrait boulevard photo, face
+ * visible in every frame on all three export sizes, no edge gaps).
+ * Frame 1 is the full top-anchored subject, frame 2 a closer face crop,
+ * frames 3-4 varied zoom/pan on the upper body / face area.
+ */
 export const ONE_PHOTO_FRAMES = [
-  { zoom: 1.3, dx: 0, dy: -0.02 },
-  { zoom: 1.05, dx: 0.05, dy: 0 },
-  { zoom: 1.7, dx: -0.08, dy: 0.05 },
-  { zoom: 1.2, dx: 0, dy: 0.08 },
+  { zoom: 1.05, dx: 0, dy: 1.05 },
+  { zoom: 1.4, dx: 0.1, dy: 1.4 },
+  { zoom: 1.25, dx: -0.08, dy: 1.25 },
+  { zoom: 1.1, dx: 0.05, dy: 0.88 },
 ];
 
 const TITLE_FONT = '"Arial Black", "Archivo Black", system-ui, sans-serif';

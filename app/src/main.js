@@ -181,7 +181,10 @@ canvas.addEventListener('pointermove', (e) => {
   f.dx += ((e.clientX - dragging.x) * dragging.scaleX) / r.w;
   f.dy += ((e.clientY - dragging.y) * dragging.scaleX) / r.h;
   f.dx = Math.max(-0.6, Math.min(0.6, f.dx));
-  f.dy = Math.max(-0.6, Math.min(0.6, f.dy));
+  // dy up to 1.6: the top-anchored default crops need dy ~= zoom (see
+  // ONE_PHOTO_FRAMES); the old +-0.6 clamp made that framing unreachable
+  // by dragging, so a dragged frame could never get the face back.
+  f.dy = Math.max(-1.6, Math.min(1.6, f.dy));
   dragging.x = e.clientX;
   dragging.y = e.clientY;
   redraw();
